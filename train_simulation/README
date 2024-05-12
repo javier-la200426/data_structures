@@ -1,0 +1,177 @@
+/**********************************************************
+* Project 1: Metro Simulator
+* CS 15
+* README
+* Edited by Javier Laveaga (jlavea01) 10/9/2023
+*********************************************************/
+
+Compile/run:
+     - Compile using
+            make MetroSim
+     - run executable with
+            ./MetroSim stationsFile passFile [commands]
+
+Program Purpose:
+     To maintain a train simulation which moves passengers from the 
+     different arrival stations to the train and eventually to their 
+     destination stations. It creates a user-facing interface in which 
+     the user can enter different commands and see an updated view of 
+     the passengers in the train and the Stations. MetroSim also prints 
+     a list of passengers that have left the train to a file specified 
+     by the user. Commands include adding a passenger, moving the train, 
+     and ending the simulation.
+
+
+Acknowledgements: 
+     https://www.cplusplus.com for std::list in PassengerQueue
+          This helped me understand the use of an iterator as well 
+          as the different methods to use for a list.
+     Lecture Slides to know how to use the template in main.
+
+Files: 
+
+main.cpp:
+     To read in the files provided by the user and provide the appropriate
+     parameters to the metrosim class methods based on the number of arguments
+
+MetroSim.cpp:
+     To move the train and to add and remove passengers from stations, as
+     well as to read and write to files. Also, to print the updated 
+     information
+     to the user and combine all the functions into one that takes into 
+     account the input. Overall, it is the main functionality of running the
+     Metro Simulation.
+
+MetroSim.h:
+     Interface of MetroSim class. It contains two lists of passenger queues 
+     which represent the arrival stations and the departure stations of the
+     passengers, also known as the train. It contains the methods that are 
+     needed when moving passengers and the train as well as helper functions
+     that aid the functions that are associated with each command.
+
+stations.txt:
+     An example file containing a list of stations. Each station is on a new 
+     line.
+
+test_commands.txt:
+     Sample list of commands that you could give to the simulator.
+
+the_metroSim:
+     reference implementation for students to see how the metro 
+     simulator behaves 
+
+Passenger.cpp
+     Implements the printing functionon in the passenger class to see
+     the information of each passenger.
+
+Passenger.h
+     Structure defining the contents of a passenger
+
+PassengerQueue.cpp
+     Implementation of the PassengerQueue class. It allows for insertion
+     and deletion of passenger from the queue as well as accesing the 
+     front passenger and printing the contents of the queue.
+
+PassengerQueue.h
+     Interface of the PassengerQueue class. Relies on a list from
+     std::list to store the different passengers.
+
+unit_tests.h
+     Provides the testing for the Passenger structure, the 
+     Passenger queue class, and the MetroSim class.
+README
+     This file which describes the metrosim class overall.
+
+
+
+Data Structures:
+     The passenger structure used contain the arrival and departure stations
+     as well as the id of the passenger. 
+     The main data structure used were queues. These relied on a linked 
+     list from the std::list. However, it can be thought of as a restricted
+     list. The main features include adding elements to the back and removing
+     elements from the front. It also allows access to the front of the queue.
+
+     Some benefits of queues are that it restricts the user, which is good 
+     since humans are error-prone. This is an example of abstraction barrier,
+     which is when the operations the programmer can make are more 
+     restricted. Queues are also good since they are easy to use as there
+     is a limited amount of operations to make and they are not very complex.
+
+     However, a disadvantage with queues is that there are no operation for 
+     accessing, adding, or removing data in the middle. This might not be 
+     ideal for some programmers as they could maybe want to have that 
+     instant access to any element that arrays provide, but are not able 
+     to do so with a queue. 
+
+     Another barrier is that when acessing an element in the queue, using a 
+     linked list means that it is necessary to loop through all the nodes 
+     that come before. So one must use an iterator to to this. Thus, there
+     is no instant access when using linked lists.
+
+     A list was chosen over a vector because vectors act like an array that
+     expands. When speed is a concern, linked lists are better since 
+     functions like adding at the back or popping from the front are O(1)
+     operations. On the other hand, for a vector, popping from the front 
+     is a O(n) operation as every element needs to be shifted over. 
+     Linked lists are much more efficient if they have a back pointer as 
+     it only takes some pointers to be edited to make changes to the back 
+     or front of the list.
+
+
+Testing:
+     Unit tests were used to first test the Passenger structure and then the 
+     PassengerQueue class. A test was made for each of the methods in the
+     class.
+
+     For the MetroSim class, unit tests were written as the methods were 
+     being created. All the methods were made public to allow for testing.
+     For every unit test, A Metrosim class was properly initialized and 
+     passengers were added before getting to the testing part. The array
+     containing the stations was also opened and deleted on every test.
+
+     All the methods have at least one unit test. String streams were passed
+     as arguments to print functions and later converted to strings using 
+     .str so that assert statements could use two strings and compare 
+     them to each other.  
+     
+     It was unclear at first how to test the opening_stations method since 
+     I was not sure how to pass the file name as an argument. However, I 
+     evetually figured out that it is as simple as writing the string name 
+     of the file.
+
+     For the function responsible for adding passengers, it was first
+     tested by adding passengers to the first station and then to stations
+     in the middle. The helper function get_station was used to obtain the
+     station to which passengers were added. This way, the print function 
+     of that particular station could be called to check if the correct
+     passengers were added to the correct station.
+
+     The function for moving the train followed a similar way of testing. It
+     was first tested by adding passengers to the first station and then to 
+     stations in the middle. Assert statements were inserted to check the 
+     effect of calling the moving function. Going all the way back to the 
+     first station was also tested. The edge case where the passengers 
+     starts and ends at teh same position was also tested.
+     
+     Note that the output stream passed to the move function served no purpose 
+     in these moving tests. This had its own testing done in a separate test.
+
+     To test the output_passenger function, which is used in the metro move 
+     function, a string stream was passed into the move function. This was
+     then converted to a string and tested against the expected output.
+
+     The other helper function were also tested separately. The print function 
+     was also tested by diffing the printed information on the terminal with
+     the simulation output.
+
+     Testing was also done when having two stations, which is the minimum.
+
+Part that you found most difficult:
+     The part that I found most difficult was the iterator and how to 
+     use it with a list. This concept was new to me and I was not sure 
+     what exactly the iterator represented. What was also challenging
+     was deciding how to take into account the different streams 
+     and how to create a template to check if the files can be opened.
+
+Time Spent: I spent approximately 28 hours on this project
