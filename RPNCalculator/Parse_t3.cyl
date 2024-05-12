@@ -1,0 +1,15 @@
+%%%
+%%% Test three for parse function
+%%%
+%%% Purpose: Tests that the parse function correctly parses a the string
+%%% and returns an rstring with the proper format given an input is separated
+%%% by several different new line characters.
+%%%
+%%% Author: Javier Laveaga (jlavea01) 10/22/2023
+%%%
+
+ 1
+
+ 
+2
++ }

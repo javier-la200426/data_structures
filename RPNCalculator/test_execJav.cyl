@@ -1,0 +1,11 @@
+%%%
+%%% Test for the exec method
+%%%
+%%% Purpose: to test the exec method by executing different
+%%% rstrings and printing the result of them.
+%%%
+%%% Author: Javier Laveaga (jlavea01) 10/22/2023
+%%%
+
+{ 3 5 } exec print { swap } exec print { { hello } print 
+5 3 dup drop / print } exec 

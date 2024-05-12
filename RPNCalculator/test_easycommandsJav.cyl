@@ -1,0 +1,10 @@
+%%%
+%%% Test for easy_commands method
+%%%
+%%% Purpose: to test the easy_commands method by pushing integers, booleans, 
+%%% and rstrings into the stack.
+%%%
+%%% Author: Javier Laveaga (jlavea01) 10/22/2023
+%%%
+
+4 5 print #t print #f print { hello }

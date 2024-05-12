@@ -1,0 +1,15 @@
+%%%
+%%% Test for the check_valid_command method
+%%%
+%%% Purpose: to test the check_valid_command method by performing the 
+%%% commands that are valid and priting one that is invalid.
+%%%
+%%% Author: Javier Laveaga (jlavea01) 10/22/2023
+%%%
+
+
+#t #f not print clear 4 5 6 8 9 0 9 7 10 drop dup 
+swap + -  / print swap mod 4 6 7 8  < 5 7 > 7 8 
+<= 7 8 >= 44 == { 4 } 
+exec { add.cylc } file #t { 4 } { 6 } if
+invalid_command quit

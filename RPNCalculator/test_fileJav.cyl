@@ -1,0 +1,11 @@
+%%%
+%%% Test for the file method
+%%%
+%%% Purpose: to test the file method by providing different files
+%%% as rstrings and then using the file command.
+%%%
+%%% Author: Javier Laveaga (jlavea01) 10/22/2023
+%%%
+
+{ fact.cylc } file { add.cylc } file { test_execJav.txt } file
+#t file { invalidFile } file

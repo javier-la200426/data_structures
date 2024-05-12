@@ -1,0 +1,12 @@
+%%%
+%%% Test for the simple_commands method
+%%%
+%%% Purpose: to test the simple_commands method by performing the 
+%%% commands that fall under the 'simple_commands' category.
+%%% Then, printing the result.
+%%%
+%%% Author: Javier Laveaga (jlavea01) 10/22/2023
+%%%
+
+#t not print 4 5 clear print #f 5 drop print dup print drop print
+4 swap print

@@ -1,0 +1,12 @@
+%%%
+%%% Test for the if method
+%%%
+%%% Purpose: to test the if method by providing different combinations
+%%% of rstrings and boolean conditions, then using the if 
+%%% command and printing the result. 
+%%%
+%%% Author: Javier Laveaga (jlavea01) 10/22/2023
+%%%
+
+#t { 3 4 } { hello } if print #f { 3 4 } { hello } if print
+5 { 3 4 } { hello } if 

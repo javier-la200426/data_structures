@@ -1,0 +1,17 @@
+%%%
+%%% Test for error_messages method
+%%%
+%%% Purpose: to test the error_messages method by using commands 
+%%% incorrectly and with the incorrect Datum elements.
+%%%
+%%% Author: Javier Laveaga (jlavea01) 10/22/2023
+%%%
+
+4 { 4 } { print } if 
+#t { hel } 5 if 
+5 not
+65 file
+4 #t > 
+5 0 /
+#invalidBool
+
