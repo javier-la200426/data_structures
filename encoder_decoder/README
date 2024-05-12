@@ -1,0 +1,335 @@
+/**********************************************************
+* Project 3: Zap
+* CS 15
+* README
+* Edited by Javier Laveaga (jlavea01) 11/09/2023
+*********************************************************/
+
+Compile/run:
+     - Compile using
+            make zap
+     - run executable with
+            ./zap [zap | unzap] inputFile outputFile
+
+Program Purpose:
+    -To maintain a compression program that that compresses 
+    and decompresses text files using the Huffman coding algorithm.
+    It implements the zap/encoding and unzap/decoding functions by calling
+    helper functions that divide the goal into smaller tasks. It can be run in
+    just two ways: zap or unzap. Depending on which is used, the zapped or 
+    unzapped file is saved in an output file. 
+    
+
+Acknowledgements: 
+     https://www.cplusplus.com for std::unordered_map
+     Lecture Slides to know how to use the template in unit_test.
+
+Files: 
+    README
+        This file which contains a description of the program
+    unit_tests.h
+        Test using the unit test framework to test the phase one functions as
+        well as the HuffmanCoder class methods
+    HuffmanCoder.h
+        Header file of HuffmanCoder that defines the class. The program
+        compresses and 
+        decompresses text files using the Huffman coding algorithm
+    HuffmanCoder.cpp
+        Implementation of HuffmanCoder class. This implementation is achieved
+        through the use of two main functions, encoder and decoder, which zap
+        or unzap a file
+    main.cpp
+        The main program of the HuffmanCoder class. It reads the arguments and
+        determines whether or not the appropriate commands are being used.
+    Makefile
+        The fail used to compile and link all files
+
+    (.txt files were used to test zap/unzap)
+    banana.txt
+        Contains the text in the example for the count_freqs function in 
+        Phase one. This file is 6 bytes.
+    hi.txt
+        Contains the text in the example for the count_freqs function in 
+        Phase One. This file is 8 bytes.
+    banana_apple.txt:
+        contains the text in the example in Counting Character Frequencies. 
+        This file is 20 bytes.
+    sentences.txt
+        contains a few sentences from a novel. This file is 225 bytes
+    all_conll_english.txt
+        contains the 2003 CoNLL English dataset used commonly in Natural
+        Language Processing. This file is about 5 MB
+    works_of_shakespeare.txt 
+        contains the works of William Shakespeare. This file is about 5 MB.
+    ecoli.coli 
+        contains the E.coli genome made up of the 4 nucleotide bases of DNA. 
+        This file is about 5 MB
+    Javsingle.txt
+        A file that contains a single unique character. This was used to test
+        the exceptions for zap and unzap.
+    JavEmpty.txt
+        An empty file which does not contain any characters. This was used to 
+        test zap when given an empty file.
+    bad_zap_file
+        A bad zip file where the tree does not match the encoding. This was 
+        used to test the decoding exception.
+    banana.out
+        Stores message printed to stdout when calling zap on banana.txt
+    banana.gt
+        Stores message printed by the_zap when calling zap on banana.txt
+    hi.out
+        Stores message printed to stdout when calling zap on hi.txt
+    hi.gt
+        Stores message printed by the_zap when calling zap on hi.txt
+    banana_apple.out
+        Stores message printed to stdout when calling zap on banana_apple.txt
+    banana_apple.gt
+        Stores message printed by the_zap when calling zap on banana_apple.txt
+    sentences.out
+        Stores message printed to stdout when calling zap on sentences.txt
+    sentences.gt
+        Stores message printed by the_zap when calling zap on sentences.txt
+    all_conll_english.out
+        Stores message printed to stdout when calling zap 
+        on all_conll_english.txxt
+    all_conll_english.gt
+        Stores message printed by the_zap when calling zap 
+        on all_conll_english.txxt
+    works_of_shakespeare.out
+        Stores message printed to stdout when calling zap 
+        on works_of_shakespeare.txt
+    works_of_shakespeare.gt
+        Stores message printed by the_zap when calling zap 
+        on works_of_shakespeare.txt
+    ecoli.coli.out
+        Stores message printed to stdout when calling zap 
+        on ecoli.coli
+    ecoli.coli.gt
+        Stores message printed by the_zap when calling zap on ecoli.coli
+    Javsingle.out
+        Stores message printed to stdout when calling zap 
+        on Javsingle.txt
+    Javsingle.gt
+        Stores message printed by the_zap when calling zap on Javsingle.txt
+    JavEmpty.out
+        Stores message printed to stdout when calling zap on JavEmpty.txt
+    JavEmpty.gt
+        Stores message printed by the_zap when calling zap on JavEmpty.txt
+    jav.txt
+        Text file with characters that create the figure 1 tree.
+
+    
+Data Structures:
+    Huffman trees here are created with the Huffman algorithm which 
+    compresses data by encoding more frequently occurring characters using 
+    fewer bits. In these trees, the leafs correspond to characters and 
+    more frequently occuring characters are closer to the root. This ensures
+    that there are fewers bits used for characters with higher frequencies and 
+    ensures a prefix-free code. Going to the left means that you generate 
+    and going to the right means that you generate a 1. The process of creating
+    this tree involves creating nodes will all the characers and their 
+    frequencies, choosing 2 nodes with the lowest counts, and pairing their 
+    sum in a parent node. This process is repeated until 1 node remains.
+    
+    Finite Maps (in this case unordered maps implemented using hashes). A
+    finite map has a key that represents the name or label of the data you 
+    want to store. The value is the actual content that you want to store. 
+    In this case the keys were charactetrs and the values were counts or 
+    an encoded string. In the case of unordered maps, they are implemented
+    using hashes. Keys are run through a hash function that produces an 
+    integer. This integer is used as an an index into an array list where 
+    values are stored. The slots of the array are called buckets. Then,
+    a compression function is used to put the integer in a specified range.
+    A good hash function is fast, deterministic, assigns different keys
+    to same buckets with extremely low probability, and spreads out keys
+    well. To address collisions, chaining (putting a list on each bucket) 
+    or open addressing (use space space in table) can be used. Using spare 
+    space can be achieved through linear probing, quadratic probing, and 
+    double hashing. When hitting the maximum load factor, rehasing occurs.
+    An unorderd map was used over an array since they have an average time
+    complexity of O(1) and they are good with insertion, removal, and lookup.
+    Arraylists or linked lists do not have this same average complexity.
+
+    A priority queue was used to store all the leaf nodes containing 
+    characters. It is similar to queues and stacks but each elemetn has an 
+    associated priority and the front of the line is always the element with 
+    the highest priority. In this case, the elements with the highest priority
+    were those nodes with the lowest frequencies. This way they could be popped
+    from the queue and added to the tree following the huffman algorithm. It
+    used a comparison function that compared 
+    two integers and chose the smallest
+    one. The key in this case would be the character and the value would be the
+    frequency stored in the node. The parent containing the sum was the pushed 
+    onto the priority queue to continue the huffman algorithm.
+
+    An algorithm I relied on for this assignment is the Huffman algorithm. This
+    was used in the build_tree function to construct the Huffman tree from the
+    leaf nodes in the priority queue. The process of combining the sum of two 
+    nodes and adding the parent to the queue until 1 tree remained was used 
+    over and over in the while loop. Pointers of the parents were changed to 
+    assign its left and right children. 
+
+    Another algorithm I used was a post order traversal executed recursively.
+    This
+    was used in the delete_tree function to delete the nodes recursively by 
+    ensuring that children are deleted first before the parents. However, other
+    similar traversals were used in other recursive functions to traverse a 
+    tree.
+    For example, the char_encode function traversed the tree and recursed left
+    and right until it found a desired character. This similar patter of using
+    recursion was used to make a tree in the read_string function, the helper
+    function
+    of the desirialize function. In internal nodes, the tree was recursed left
+    and right until it found a leaf, and that is how each node was created.
+     
+
+Testing:
+    The unit test framework was used to test most of the functions. The ones
+    not tested with this framwork were tested with testing files in the 
+    terminal.
+    The unit tests were made for functions in phase one of the project 
+    as well as
+    the functions in the HuffmanCoder class. These include the helper functions
+    for encoding and decoding. The ZapUtil.h is included to be able to print 
+    trees and visualize output on terminal.
+
+    The private helper function for encoding and decoding were made public 
+    temporarily to be able to test them in unit tests. After the phase one
+    function were tested, they were tested again since I switched from using
+    an array to using an unorderd map. 
+
+    After that, tests for each of the helper function for encoding were made.
+    This involved creating an isntance of the Huffman class and calling the
+    functions one by one until I arrive to the desired testing function. 
+
+    Then, the encoder was tested as a whole with the different testing
+    files provided. A unit test was also written to test specifically for the
+    error thrown.
+
+    After encoding passed all tests, the decoder was tested using multiple
+    testing files and also printing trees and other debugging information 
+    inside the decoder function as I worked my way through each of the 
+    functions.
+    Once all the helper functions had been tested using the terminal, the 
+    function as a whole was tested again with the different testing files.
+    
+    The error thrown by the decoder was also tested using unit tests and the
+    bad_zap_file in the terminal 
+
+    check_empty function was not explicitly tested in unit tests
+    but it was tested with the JavEmpty.txt file (more info in zapping / 
+    encoding section).
+
+    decoding function: it was tested in the terminal with multiple 
+    files.(More on the unzapping section below). 
+    Test files included bad_zap_file.
+    Its error thrown was also tested using unit tests.
+
+    single_decoding function: this was tested with the Javsingle.txt file. 
+    More on this under zapping / encoding section.
+
+    save_to_file function: this was tested by diffing the unzap resulting
+    files with the original files. (more un unzapping section below)
+
+    There was not an explicit test testing the read_string function because it
+    was tested by calling the deserialize function which relies upon heavily 
+    by the read_string function.
+
+    Testing large files such as all_conll_english.txt were tested in 
+    the terminal without running valgrind. Then the result outputed was
+    diffed with the reference
+
+    zapping / encoding -  diffing with reference :
+        Running with provided files:
+            banana.txt:
+                ./zap zap banana.txt JavAtext.out > banana.out
+                ./the_zap zap banana.txt JavAtext.out > banana.gt
+                diff banana.txt banana.gt
+            hi.txt:
+                ./zap zap hi.txt JavAtext.out > hi.out
+                ./the_zap zap hi.txt JavAtext.out > hi.gt
+                diff hi.out hi.gt
+            banana_apple.txt:
+                ./zap zap banana_apple.txt JavAtext.out > banana_apple.out
+                ./the_zap zap banana_apple.txt JavAtext.out > banana_apple.gt
+                diff banana_apple.out banana_apple.gt
+            sentences.txt
+                ./zap zap sentences.txt JavAtext.out > sentences.out
+                ./the_zap zap sentences.txt JavAtext.out > sentences.gt
+                diff sentences.out sentences.gt
+            all_conll_english.txt
+                ./zap zap all_conll_english.txt JavAtext.out > 
+                all_conll_english.out
+                ./the_zap zap all_conll_english.txt JavAtext.out >
+                 all_conll_english.gt
+                diff all_conll_english.out all_conll_english.gt
+            works_of_shakespeare.txt 
+                ./zap zap works_of_shakespeare.txt JavAtext.out > 
+                works_of_shakespeare.out
+                ./the_zap zap works_of_shakespeare.txt JavAtext.out >
+                 works_of_shakespeare.gt
+                diff works_of_shakespeare.out works_of_shakespeare.gtc
+            ecoli.coli
+                ./zap zap ecoli.coli JavAtext.out > ecoli.coli.out
+                ./the_zap zap ecoli.coli JavAtext.out > ecoli.coli.gt
+                diff ecoli.coli.out ecoli.coli.gt
+        Running with Jav input files:
+            Javsingle.txt
+                ./zap zap Javsingle.txt JavAtext.out > Javsingle.out
+                ./the_zap zap Javsingle.txt JavAtext.out > Javsingle.gt
+                diff Javsingle.out Javsingle.gt
+            JavEmpty.txt
+                ./zap zap JavEmpty.txt JavAtext.out > JavEmpty.out
+                ./the_zap zap JavEmpty.txt JavAtext.out > JavEmpty.gt
+                diff JavEmpty.out JavEmpty.gt
+                
+     unzapping / decoding: diffing with original provided files
+        Running with provided files:
+            banana.txt:
+                ./zap zap banana.txt binaryJav
+                ./zap unzap binaryJav banana.unzap
+                diff banana.txt banana.unzap
+            hi.txt:
+                ./zap zap hi.txt binaryJav
+                ./zap unzap binaryJav hi.unzap
+                diff banana.txt hi.unzap
+            banana_apple.txt:
+                ./zap zap banana_apple.txt binaryJav
+                ./zap unzap binaryJav banana_apple.unzap
+                diff banana_apple.txt banana_apple.unzap
+            sentences.txt
+                ./zap zap sentences.txt binaryJav
+                ./zap unzap binaryJav sentences.unzap
+                diff sentences.txt sentences.unzap
+            all_conll_english.txt
+                ./zap zap all_conll_english.txt binaryJav
+                ./zap unzap binaryJav all_conll_english.unzap
+                diff all_conll_english.txt all_conll_english.unzap
+            works_of_shakespeare.txt 
+                ./zap zap works_of_shakespeare.txt binaryJav
+                ./zap unzap binaryJav works_of_shakespeare.unzap
+                diff works_of_shakespeare.txt works_of_shakespeare.unzap
+            ecoli.coli
+                ./zap zap ecoli.coli binaryJav
+                ./zap unzap binaryJav ecoli.coli.unzap
+                diff ecoli.coli ecoli.coli.unzap
+        Running with Jav input files:
+            Javsingle.txt
+                ./zap zap Javsingle.txt binaryJav
+                ./zap unzap binaryJav Javsingle.unzap
+                diff Javsingle.txt Javsingle.unzap
+        Testing bad zip file provided (looking at terminal output):
+            bad_zap_file
+            ./zap unzap bad_zap_file Useless.Jav 
+            ./the_zap unzap bad_zap_file Useless.Jav
+            
+    Testing command error (looking at terminal output)
+        ./zap invalidcommand bad_zap_file Useless.Jav 
+        ./the_zap invalidcommand bad_zap_file Useless.Jav 
+
+    Testing unable to open file (looking at terminal output)
+        ./zap unzap siuu Useless.Jav 
+        ./the_zap unzap siuu Useless.Jav
+
+
+Time Spent: I spent approximately 18 hours on this project
