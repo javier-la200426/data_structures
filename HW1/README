@@ -1,0 +1,152 @@
+/*******************************************************************************
+* HW 1: ArrayLists
+* Comp 15 Fall 2023
+* README
+* Author: Javier Laveaga AND jlavea01
+*******************************************************************************/
+
+Program Purpose:
+---------------
+
+    -The files I wrote in this homework maintain an array list by creating different
+    functionalities that edit the list. These funcitonalities include accessing, 
+    adding, and removing elements.
+
+Compile/run:
+-----------
+
+    Compile and Run using the command "unit_test" to test the unit tests. 
+    Compile the timer program by running "maker timer" 
+    Run the executable using "./timer"
+
+
+Acknowledgments:
+---------------
+
+    -Mina Shimada. I went to Office Hours on Monday and I believe that the TA
+    that helped me was Ella_Guo. She helped me with the syntax errors and 
+    how to access the private variables in unit tests.
+
+Files:
+-----
+
+CharArrayList.h: Interface for a character ArrayList Class. A expand function 
+    was added to create more space when the size reaches the capacity.
+    Also, a capacity getter was added for testing purposes.
+
+CharArrayList.cpp: Implementation of a character ArrayList Class.
+    The default constructor for this class initializes a CharArrayList to a size of
+    0, and a capacity of 0. The copy constructor and assignment operator have been
+    modified to make a deep copy.
+
+unit_tests.h: A unit testing file for the CharArrayList Class. 
+    Runs together with the unit_test framework to allow for testing of 
+    individual functions. Provides several tests including more than one 
+    per function. Also tests to see if the right runtime and range errors
+    come up.
+
+Makefile: File to build the program.
+
+README: File that describes the files (this file).
+
+
+Data Structures:
+---------------
+
+    This main data structure of this lab is an array list, which is a dynamically
+    expanding array. If the number of items is ever equal to the capacity, the
+    array will expand, allowing for an arbitrary number of elements to be inserted 
+    into the ArrayList. 
+    The benefits of array lists are that it does not have a fixed size like a
+    regular array. It expands and shrinks automatically. Another major advantage
+    with array lists is having direct acces to each element.
+    A major disadvantage with array lists is when adding elements at or near
+    the front. This results in each element being moved over one spot which 
+    is not time efficient. Another disadvantage is that it might be very 
+    space inefficient when doubling the capacity each time size is equal to 
+    capacity. 
+    Allocating memory for a new/temporary array, deleting the old array, and 
+    making the old array pointer point to the new array was a common pattern for
+    function like expanding the capacity.
+
+
+Testing:
+-------
+
+    -To test the ArrayList class, unit tests were made for each function. For the
+    constructors, lists werer created using the appropriate parameters to test
+    if the array lists were properly constructed.
+    -For the copy constructor, a list was constructed based on another list. Then, 
+    the size of one of them was changed and whether or not that changed the size
+    of the other was tested. 
+    -For the functions that returned some element or boolean, assert statements were
+    used to see if the right output was produced.
+    -For testing for correct run time and range error messages the try and catch 
+    statements were used. These were followed by assert statements to compare 
+    strings.
+    -The elementAt function was used through various tests to see if, after the use
+    of one of the functions, the correct element was in its appropriate place.
+    -The size function was also used in a similar way to see if the correct size
+    was produced after the use of functions that removed or added elements.
+    -For the concatenate function, for example, the elementAt function was used to 
+    see if the correct elements were added to the list that called the function.
+
+    Time spent:
+    -----------
+    I spent approximately eleven hours on this project
+
+
+    Measurements Taken Questions:
+    -----------------------------
+    1. 
+        ----------------------------------------------------------------------
+        INSERTION OPERATION                                 Time (nanoseconds)
+        ----------------------------------------------------------------------
+        pushAtFront 100 times                               4057441           
+        ----------------------------------------------------------------------
+        pushAtBack 100 times                                619               
+        ----------------------------------------------------------------------
+        insertAt middle of list 100 times                   3490566           
+        ----------------------------------------------------------------------
+        REMOVAL OPERATION                                   Time (nanoseconds)
+        ----------------------------------------------------------------------
+        popFromFront 100 times                              4053513           
+        ----------------------------------------------------------------------
+        popFromBack 100 times                               757               
+        ----------------------------------------------------------------------
+        removeAt middle of list 100 times                   2037400           
+        ----------------------------------------------------------------------
+        ACCESS OPERATION                                    Time (nanoseconds)
+        ----------------------------------------------------------------------
+        call first() 100 times                              624               
+        ----------------------------------------------------------------------
+        call last() 100 times                               656               
+        ----------------------------------------------------------------------
+        call elementAt() for middle of list 100 times       713               
+        ----------------------------------------------------------------------
+
+        Ranking (Fastest to Slowest): pushAtBack, first(), last(), elementAt(), 
+        popFromBack, removeAt, insertAt middle of list, popFromFront, pushAtFront.  
+
+    2.
+        The operations that involved inserting or removing elements from the front
+        of the list took the most time because of the disadvantage with array lists.
+        Every element needs to be moved over one spot when removing/adding to the 
+        front. 
+        The operations involving removing or adding elements in the middle were the 
+        second operations that took the most time because of the same disadvantage 
+        discussed above. This time, however, it did not have to move all the elements,
+        just some of them, so it took less time than the front operations.
+        The operations that involved removing or adding elements at the back took 
+        approximately the same time since no elements need to be shifted over. Instead,
+        only one element needs to be added.
+        The access operations also took approximately the same time because they do not
+        change the list at all. They are just retrieving information from it. Since 
+        array lists provide instant acces to its elements, it did not take long.
+
+
+
+    
+
+
+
