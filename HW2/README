@@ -1,0 +1,229 @@
+/*******************************************************************************
+* HW 2: LinkedLists
+* Comp 15 Fall 2023
+* README
+* Author: Javier Laveaga AND jlavea01
+*******************************************************************************/
+
+Program Purpose:
+---------------
+
+    -The files I wrote in this homework maintain a character linked list by 
+    creating different functionalities that edit the list. These 
+    funcitonalities include accessing, adding, and removing elements.
+
+Compile/run:
+-----------
+
+    Compile and Run using the command "unit_test" to test the unit tests. 
+    Compile the timer program by running "maker timer" 
+    Run the executable using "./timer"
+
+
+Acknowledgments:
+---------------
+
+    -I went to Office Hours on Thursday and I believe that the TA
+    that helped me was Abhi Mummaneni. He helped me with constructors
+    and with properly updating the front pointer.
+
+Files:
+-----
+
+CharLinkedList.h: Interface for a character LinkedList Class. Helper functions
+were added to help implement the destructor, retrieving elements, and 
+getting nodes at a specified index.
+
+CharLinkedList.cpp: Implementation of a character LinkedList Class.
+    The default constructor for this class initializes a Linked list by 
+    setting the front pointer to the null pointer. The copy constructor and 
+    assignment operator have been modified to make a deep copy.
+
+unit_tests.h: A unit testing file for the CharLinkedList Class. 
+    Runs together with the unit_test framework to allow for testing of 
+    individual functions. Provides several tests including more than one 
+    per function. Also tests to see if the right runtime and range errors
+    come up.
+
+Makefile: File to build the program.
+
+README: File that describes the files (this file).
+
+
+Data Structures:
+---------------
+
+    This main data structure of this lab is a doubly linked list, which is a 
+    list containing nodes that point to one another. In other words, a 
+    particular 
+    node points to the node behind it and infront of it, which means each node 
+    has a 'previous' and a 'next' pointer. However, the 'previous' pointer of 
+    the first node points to the null pointer and the 'next' pointer of the last
+    node points to the null pointer as well. 
+
+    Every linked list has a front pointer to indicate where the list starts and 
+    also to be able to access the first node in the list. The use of a back 
+    pointer that points to the last node in the list is optional and was not 
+    used in this class.
+
+    The benefits of linked lists are that inserting elements at the front of 
+    the list is time efficient as the beginning of the list is easily 
+    accessiblewith the front pointer. Another benefits to linked list 
+    is that it is space
+    efficient as, at least for this class, every time a new element is added, 
+    the size of the list increases by 1 and it does not double. However, this 
+    might to be very time efficient as every time an element is added, new
+    memory needs to be allocated.
+
+    A major disadvantage with linked lists is that, when adding an element to 
+    the back of the list, one has to pass through every node in the list to 
+    get to it. This would not be the case if a back pointer had been used, 
+    but in this class it is a disadvantage. Another disadvantage is that,
+    even with the use of a back pointer, when inserting or getting an 
+    element at the middle of the list, you still have to pass through 
+    several nodes to get to the desired index. Thus, linked lists do not 
+    provide instant access to the elements.
+
+    Recursion was used in private helper functions were to iterate through the 
+    nodes in the list. These served the purpose of either deleting the nodes
+    or accessing a particular node.
+
+
+Testing:
+-------
+
+    -To test the LinkedList class, unit tests were made for each function. F
+    or the constructors, lists were created using the appropriate parameters 
+    to test if the linked lists were properly constructed.
+    -For the copy constructor, a list was constructed based on another list. 
+    Then, 
+    the size of one of them was changed and whether or not that changed the size
+    of the other was tested. 
+    -For the functions that returned some element or boolean, assert statements 
+    were used to see if the right output was produced.
+    -For testing for correct run time and range error messages the try and 
+    catch statements were used. These were followed by assert statements 
+    to compare strings.
+    -The toString function was used in tests to see if after the use of one
+    function, the correct list was outputed.
+    -For example, for the constructors, the toString function was used to see
+    if the correct list was created.
+    -The elementAt function was used through various tests to see if, after the 
+    use of one of the functions, the correct element was in its appropriate 
+    place.
+    -The size function was also used in a similar way to see if the correct size
+    was produced after the use of functions that removed or added elements.
+    -For the concatenate function, for example, the elementAt function was used 
+    to see if the correct elements were added to the list that called the 
+    function.
+
+Time spent:
+-----------
+    I spent approximately fifteeen hours on this project
+
+
+Measurements Taken Questions:
+-----------------------------
+    1. 
+        ----------------------------------------------------------------------
+        INSERTION OPERATION                                 Time (nanoseconds)
+        ----------------------------------------------------------------------
+        pushAtFront 100 times                               2990              
+        ----------------------------------------------------------------------
+        pushAtBack 100 times                                5112419           
+        ----------------------------------------------------------------------
+        insertAt middle of list 100 times                   5366073           
+        ----------------------------------------------------------------------
+        REMOVAL OPERATION                                   Time (nanoseconds)
+        ----------------------------------------------------------------------
+        popFromFront 100 times                              3046              
+        ----------------------------------------------------------------------
+        popFromBack 100 times                               10836548          
+        ----------------------------------------------------------------------
+        removeAt middle of list 100 times                   5445168           
+        ----------------------------------------------------------------------
+        ACCESS OPERATION                                    Time (nanoseconds)
+        ----------------------------------------------------------------------
+        call first() 100 times                              617               
+        ----------------------------------------------------------------------
+        call last() 100 times                               5493614           
+        ----------------------------------------------------------------------
+        call elementAt() for middle of list 100 times       5571493           
+        ----------------------------------------------------------------------
+
+        
+        Ranking (Fastest to Slowest):
+            Insertion:
+                pushAtFront, pushAtBack, insertAt middle
+            Removal:
+                popFromFront, removeAt, popFromBack
+            Access:
+                first, last, elementAt
+
+        Ranking (Total): first(), pushAtFront, popFromFront,
+        pushAtBack, insertAt middle, removeAt middle, last (), elementAt
+        popFromBack.
+
+
+    2.
+        The operations were the fastest involved the front of the list. This 
+        can be explained since linked lists have a front pointer that makes 
+        the beginning of the list very accessible.
+        The operations that took the longest involved the back or middle 
+        of the list. This is because, for linked lists, every time elements
+        that are not in teh front need to be accessed, you have to pass through
+        several nodes to get to the desired one.
+        It could be that inserting at the middle of the list took more than
+        inserting at the end o fthe list because of the pointer adjustements
+        needed when inserting a node between two nodes. 
+    3.
+        The operations that are faster when using array lists involved adding
+        or removing elements at the back of the list. This is because array 
+        lists provide instant access while, in linked lists, you have to pass 
+        through every node to access the back.
+        The operations that were faster using linked lists, on the other hand, 
+        involved removing or adding elements at the front of the list. This 
+        is because linked lists allow you to access the front with the front
+        pointer very easily, and there is no shifting involved. Instead, only
+        a few pointers need to be adjusted.
+        Overall, array lists seemed to be more time efficient that linked lists
+        because of instant access to elements and because there are not that 
+        many times where memory needs to be allocated. On the other hands, 
+        linked lists need to allocate memory for every element added. This also 
+        makes linked lists more space efficient though.
+
+
+Last Questions:
+---------------
+    1.
+        Functions that involved the front such as pushAtFront or popFromFront
+        werer easier to implement in linked lists since they only involved
+        adjusting some pointers. However, for Array lists, every element 
+        had to be shifted over once. Functions like concatenate were slightly
+        easier in linked lists since there is not need to expand the list as 
+        the linked list does not rely in capacity.
+    2.
+        Functions that were easier to implement in array lists involved 
+        adding or removing elements at the back of the lists. This is 
+        because Array lists provide instant access to the elements. On 
+        the other hand, for linked lists, to reach the back of the list, 
+        a recursive function had to be used to pass through all the nodes. 
+        The removeAt function was harder to implement in the linked lists
+        as many pointers needed to be switched around. The way of switching
+        those pointers is also different depending where in the list you are.
+        However, for array list it is the same for loop that is executed 
+        wherever you are in the list.
+    3.
+        If a client had an existing program that uses CharArrayLists, they
+        would have to delete all their private member variables (except 
+        the size variable) and add the node structure, a front pointer, 
+        and the helper functions. They would of course also need to obtain
+        the file with the correct implementatin of the CharLinkedLists.
+        This way, they would switch to CharLinkedLists.
+
+
+
+    
+
+
+
