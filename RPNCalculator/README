@@ -1,0 +1,242 @@
+/**********************************************************
+* Project 2: CalcYouLater
+* CS 15
+* README
+* Edited by Javier Laveaga (jlavea01) 10/16/2023
+*********************************************************/
+
+Compile/run:
+     - Compile using
+            make CalcYouLater
+     - run executable with
+            ./CalcYouLater
+
+Program Purpose:
+     To maintain a calculator in Reverse Polish Notation (RPN) 
+     It creates a user-facing interface in which 
+     the user can enter different commands and print different results
+     of computations. The commands can be inputted as standard input, 
+     rstrings, or files contained within rstrings. Operations include 
+     addition, substraction, multiplication, and division. It also 
+     features other more complex commands such as executing the 
+     commands within an rstring or a file. The program keeps prompting
+     for commands even after displaying errors. These errors may come from 
+     inadequate untilization of commands, entering an invalid command,
+     or when dealing with an empty stack. The program will quit only when 
+     the command 'quit' is read.
+
+Acknowledgements: 
+     https://www.cplusplus.com for std::list in DatumStack class
+          This helped me understand the use of an iterator as well 
+          as the different methods to use for a list.
+     Lecture Slides to know how to use the template in unit_test.
+     TA Check off to help me understand the assignment as a whole.
+
+Files: 
+
+DatumStack.h:
+     The interface for a DatumStack. It holds a list of Datum 
+     objects, which represents the stack and allows for the 
+     manipulation of the stack.
+
+DatumStack.cpp:
+     The implementation for the DatumStack class. The class uses 
+     a list of Datum elements from std::list and calls the appropriate
+     functions under that list class when the methods in DatumStack
+     are called.
+
+parser.h:
+     The declaration of the parseRString function. This takes 
+     a reference to an istream to continue reading from input
+
+parser.cpp:
+     The definition of the function parseString. This function
+     takes in the address to an input stream and returns 
+     an rstring with its appropriate specifications.
+
+unit_tests.h:
+     unit tests for the parseString function, DatumStack class, and 
+     RPNCalc class.
+
+Parse_t1.cyl
+     Command file to test the parseString function - normal format
+
+Parse_t2.cyl
+     Command file to test the parseString function - nested brackets
+
+Parse_t3.cyl
+     Command file to test the parseString function - new line characters
+ 
+README
+     This file which describes the metrosim class overall.
+RPNCalc.h
+     The interface for an RPNCalc. It contains a stack in which the Datum
+     elements are held and various methods allowing for the manipulation of 
+     stack elements as well as printing the top element.
+RPNCalc.cpp
+     The implementation for the RPNCalc class. It manipulate the elements
+     of the stack properly based on the commands. It also handles 
+     errors and different type of inputs when entering commands.
+main.cpp
+     File that creates an instance of the RPNCalc class and runs the 
+     program.
+MakeFile
+     The file responsible for building the program and compiling, then
+     linking all files together.
+
+test_easycommandsJav.cyl
+     File that tests the easy_commands method by pushing integers, booleans, 
+     and rstrings into the stack.
+
+test_errormessages.cyl
+     file that tests the error_messages method by using commands 
+     incorrectly and with the incorrect Datum elements.
+
+test_execJav.cyl
+     file that tests the exec method by executing different
+     rstrings and printing the result of them.
+
+test_fileJav.cyl
+     file that tests the file method by providing different files
+     as rstrings and then using the file command.
+
+test_if_cJav.cyl
+     file that tests the if method by providing different combinations
+     of rstrings and boolean conditions, then using the if command
+
+test_operationJav.cyl
+     file that tests the quit_or_operation method by pushing different
+     integers and performing boolean and arithmetic operations.
+
+test_simplecommandsJav.cyl
+     file that tests the simple_commands method by performing the 
+     commands that fall under the 'simple_commands' category. 
+     These are print, dup, swap, not, clear, and drop.
+
+test_valid_commandsJav.cyl
+     file that tests the check_valid_command method inputting the 
+     commands that are valid and priting one that is invalid.
+
+Data Structures:
+     The structure used here is a stack. The DatumStack class maintains the 
+     stack and which holds Datum elements. The stack allows for access to the
+     top element as well as popping and pushing to the top of the stack. This 
+     means that elements are always added to the top of the stack and are 
+     always removed from the top of the stack.
+
+     The stack is a last in, first out (LIFO) data structure. This means that
+     the last element that is added to the stack is the first element to 
+     be removed. This is similar to a spring-loaded plate or tray dispenser.
+     New plates are added to the top and peoople retrieve plates from the
+     top.
+
+     You can think of stacks as a more restricted version of lists. This is 
+     powerful since restrictions are good, creating an abstraction barrier
+
+     The features of a stack data structure include adding new elements to 
+     the top of the stack, removing elements from the top, and returning
+     the top element. Other features of a stack are getting its size or 
+     the number of elements and checking whether its empty.
+
+     A stack is useful when modeling task interruption and resumption. The 
+     most recently interrupted task is where we resume. Two other 
+     situations where you could use a stack include a business that receives
+     calls putting customers on hold and reading from a website page. 
+
+     Take a worker in a business that begins a call with a customer. Then,
+     another more important call comes in, so the worker puts the current
+     call on hold and answers the incoming call. The worker could keep 
+     getting calls that are more important that the current call and keep 
+     putting the current call on hold. Once the worker is done with the most 
+     recent call, then the worker will go back to the previous call and so 
+     on until they get back to the first call and eventually finish calling
+     everyone.
+
+     Say that you are reading about a topic on one page and then you come 
+     accross a link within that page. You click on it and that takes you 
+     to another page. This process can be repeated several times. Once you
+     are done reading the most recently opened page, you close it and go 
+     back to the page you were reading before. You do this until you 
+     are done reading all the pages and then close all the tabs.
+
+     The stack was used for the RPNCalc because it allows for easy 
+     operations between elements in the stack. It also makes a lot of 
+     sense to use the stack for a Reverse Polish Notation calculator
+     because of the nature of how the operations are performed. The 
+     operation will always act on the previous elements or the elements
+     that are in the top of the stack.
+
+     An interesting algorithm is the processing and performing of calculations 
+     on operands with the different arithmetic and booolean operators. 
+     The 'operation' and 'bool_operations' methods are responsible for this. 
+     They achieve the correct manipulation of stack elements by popping the top
+     two elements from the stack and then pushing the result to the 
+     top of the stack. The first operand of the operation is the deeper
+     element of the stack which gets associated with the top element of 
+     the stack, which is the second operand.
+
+     Another interesting algorithm is the handling of rstring commands when
+     using exec. This function pops the rstring from the stack, parses its
+     contents, and executes the commands contained within it. This involves
+     reading commands from a string by changing it into an input stream. 
+     The exec command calls the run_loop method by passing this stream into 
+     it, which is similar to passing the standard input stream into it. This 
+     same functionality is mimicked by the file function which reads and
+     executes commands from a file. This time, though, a file stream is 
+     passed into the run_loop method.
+
+
+Testing:
+     Unit tests were used first to test the DatumStack class. Each 
+     of the methods were tested with a non-empty and empty stack. This
+     was done to see if the correct error message was thrown. String
+     streams were used to see the impact of each of the functions on 
+     the stack. The size function was also used to check if the size 
+     correctly changed.
+
+     Then, the parseString function was tested using the command files 
+     labeled 'Parse.' One contained an rstring in the 'normal' format, 
+     another had nested brackets, and the other separated the commands 
+     with new line characters. The outputed string was then compared to
+     the expected string.
+
+     Then, the testing for the RPNCalc began. Using unit testing, the methods
+     were tested with a non-empty and empty stack to see if the correct error 
+     was thrown.
+     
+     Also, testing functions with the innapropriate Datum elements was also 
+     tested to see if the corresponding error was thrown. For example, the not
+     function was tested when you try to 'not' an integer. 
+
+     The methods responsible for arithmetic and boolean operations were also 
+     tested by adding integers to the stack and then checking that the correct
+     result was pushed into the stack. This checking was done using the print
+     function in the DatumStack class and passing in a string stream. The 
+     testing of operations with improper Datum elements was also tested to 
+     see if the correct error was thrown. 
+
+     The == operator was an exeption, so it was also tested with other Datum
+     elements that are not integers.
+
+     The exec function was tested with and without an rstring to 
+     see if the correct error was thrown and if the correct commands were 
+     read in. Then, the file function was tested using the provided cylc 
+     files as well as with invalid files to test if the correct error 
+     was thrown.
+
+     The run_loop was tested by feeding into it two different 
+     file streams using the files fact.cylc and fib.cylc.
+
+     Additionally, there were 8 command files made that each tested a different
+     methods called in the run_loop function. These included testing for error 
+     messages, testing the different operators, testing the commands that add 
+     Datums to the stack, testing for valid commands, and testing for the 
+     functions responsible for the exec, file, and if commands.
+     
+     Each of these command files were tested on the provided executable
+     theCalcYouLater and my executable CalcYouLater. Their corresponding
+     .gt and .out files were created and diff was used on them. A 
+     visual comparison of the errors was also made. 
+
+
+Time Spent: I spent approximately 30 hours on this project 
